@@ -15,7 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag kubetest:$GITHUB_REF_NAME-$GITHUB_SHA
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+      run: docker build . --file Dockerfile --tag $DOCKER_USER/kubetest:$GITHUB_REF_NAME-$GITHUB_SHA
     
     - name: Login to Docker
       env:
