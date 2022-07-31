@@ -26,4 +26,6 @@ jobs:
       run: docker login -u=$DOCKER_USER -p=$DOCKER_PASS
       
     - name: Push to Docker
-      run: docker push kubetest:$GITHUB_REF_NAME-$GITHUB_SHA
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+      run: docker push $DOCKER_USER/kubetest:$GITHUB_REF_NAME-$GITHUB_SHA
