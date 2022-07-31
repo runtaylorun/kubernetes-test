@@ -18,6 +18,9 @@ jobs:
       run: docker build . --file Dockerfile --tag kubetest:$GITHUB_REF_NAME-$GITHUB_SHA
     
     - name: Login to Docker
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
       run: docker login -u=$DOCKER_USER -p=$DOCKER_PASS
       
     - name: Push to Docker
